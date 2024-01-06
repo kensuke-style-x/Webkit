@@ -1,0 +1,56 @@
+import UIKit
+import WebKit
+
+class WebViewController: UIViewController {
+    
+    private let url:URL
+    
+    init(url:URL,title:String){
+        
+        self.url = url
+       
+        super .init(nibName: nil, bundle: nil)
+        
+        self.title = title
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    private var webView: WKWebView = {
+        
+        let preferences = WKWebpagePreferences()
+        preferences.allowsContentJavaScript = true
+        let configuration = WKWebViewConfiguration()
+        configuration.defaultWebpagePreferences = preferences
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+       
+        return webView
+    }()
+    
+    
+    
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //background
+       
+        //webView
+        view.addSubview(webView)
+        webView.load(URLRequest(url: url))
+       
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        webView.frame = view.bounds
+    }
+    
+    
+    
+
+    
+}
